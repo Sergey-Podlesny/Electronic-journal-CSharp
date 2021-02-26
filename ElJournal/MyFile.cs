@@ -33,7 +33,15 @@ namespace kursach
             BinaryFormatter formatter = new BinaryFormatter();
             using(FileStream fs = new FileStream(file, FileMode.OpenOrCreate))
             {
-                students = (List<Student>)formatter.Deserialize(fs);
+                try
+                {
+                    students = (List<Student>)formatter.Deserialize(fs);
+                }
+                catch
+                {
+                    fs.SetLength(0);
+                }
+                
             }
             return students;
         }
